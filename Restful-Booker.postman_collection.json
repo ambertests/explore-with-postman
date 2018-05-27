@@ -1,0 +1,535 @@
+{
+	"info": {
+		"name": "Restful-Booker",
+		"_postman_id": "8d793582-7f6a-36f0-1939-e5b531b0294e",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4b5cce6c-254f-4bc1-b364-93f2c6f43cf8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9404c4a-65ee-4867-82c8-0c0ecfdff681",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"pm.environment.set(\"rb_token\", jsonData.token);",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"admin\", \"password\":\"password123\"}"
+				},
+				"url": {
+					"raw": "{{RB_URL}}/auth",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"auth"
+					]
+				},
+				"description": ""
+			},
+			"response": [
+				{
+					"id": "e45451f0-4b1a-4ba5-9c03-cbe8f0d6e241",
+					"name": "Auth",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"blah\", \"password\":\"12345\"}"
+						},
+						"url": {
+							"raw": "https://restful-booker.herokuapp.com/auth",
+							"protocol": "https",
+							"host": [
+								"restful-booker",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [],
+					"cookie": [],
+					"responseTime": "0",
+					"body": "{\n    \"token\": \"abcdefg\"\n}"
+				},
+				{
+					"id": "0d708bf0-2895-4fc9-ac80-c0a291077712",
+					"name": "Auth - Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"admin\", \"password\":\"password123\"}"
+						},
+						"url": {
+							"raw": "{{RB_URL}}/auth",
+							"host": [
+								"{{RB_URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Length",
+							"value": "27",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 19 Feb 2018 13:02:22 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"1b-ADsmWUZvxUTYqiHDNFO45L/kA54\"",
+							"name": "Etag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Server",
+							"value": "Cowboy",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur",
+							"name": "Via",
+							"description": "Informs the client of proxies through which the response was sent."
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Tue Jan 19 2038 03:14:07 GMT+0000 (GMT)",
+							"httpOnly": false,
+							"domain": "restful-booker.herokuapp.com",
+							"path": "/",
+							"secure": false,
+							"value": "good",
+							"key": "cookie"
+						}
+					],
+					"responseTime": 390,
+					"body": "{\"token\":\"421ca5605ff1c84\"}"
+				},
+				{
+					"id": "310799d5-40fd-409a-8b5f-45dc9ff05537",
+					"name": "Auth - Invalid",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": false
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"admin\", \"password\":\"password\"}"
+						},
+						"url": {
+							"raw": "{{RB_URL}}/auth",
+							"host": [
+								"{{RB_URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Length",
+							"value": "28",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 19 Feb 2018 13:02:50 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Etag",
+							"value": "W/\"1c-J3EiwfZwVQjKTKvpvazUfTni8fI\"",
+							"name": "Etag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Server",
+							"value": "Cowboy",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 vegur",
+							"name": "Via",
+							"description": "Informs the client of proxies through which the response was sent."
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"name": "X-Powered-By",
+							"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Tue Jan 19 2038 03:14:07 GMT+0000 (GMT)",
+							"httpOnly": false,
+							"domain": "restful-booker.herokuapp.com",
+							"path": "/",
+							"secure": false,
+							"value": "good",
+							"key": "cookie"
+						}
+					],
+					"responseTime": 107,
+					"body": "{\"reason\":\"Bad credentials\"}"
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8155bfb0-17ab-4d49-86f4-dca1bb047861",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{RB_URL}}/ping",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"ping"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Bookings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b8fc9c4-96ff-4df2-9e8e-a9726bb1c17d",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var schema = {",
+							"  \"items\": {",
+							"    \"type\": \"object\",",
+							"    \"properties\" : ",
+							"              {",
+							"                  \"bookingid\": { \"type\": \"number\" },",
+							"              }",
+							"  }",
+							"};",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{RB_URL}}/booking",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"booking"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c500fe3f-0b4b-4673-87d6-0517385834f3",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{RB_URL}}/booking/2",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"booking",
+						"2"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0bf9cb58-c081-4f89-9c2a-6e802bd7f6b8",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstname\" : \"Sally\",\n  \"lastname\" : \"Brown\",\n  \"totalprice\" : 111,\n  \"depositpaid\" : true,\n  \"additionalneeds\" : \"Breakfast\",\n  \"bookingdates\" : {\n    \"checkin\" : \"2013-02-23\",\n    \"checkout\" : \"2014-10-23\"\n  }\n}"
+				},
+				"url": {
+					"raw": "{{RB_URL}}/booking",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"booking"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Modify Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fb40c813-2914-47c2-b364-9dfec5087b27",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{rb_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstname\" : \"Sally\",\n  \"lastname\" : \"Brown\",\n  \"totalprice\" : 90,\n  \"depositpaid\" : true,\n  \"additionalneeds\" : \"Breakfast\",\n  \"bookingdates\" : {\n    \"checkin\" : \"2013-02-23\",\n    \"checkout\" : \"2014-10-23\"\n  }\n}"
+				},
+				"url": {
+					"raw": "{{RB_URL}}/booking/11",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"booking",
+						"11"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc2f44b9-6f62-4dca-b363-de57a5c40de2",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{rb_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{RB_URL}}/booking/11",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"booking",
+						"11"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
