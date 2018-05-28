@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "de524cab-b649-4130-ab54-42da6ca470f2",
+		"name": "NaughtyStrings",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b32a98fa-fdf7-4afa-86e4-0c34b0fec969",
+						"type": "text/javascript",
+						"exec": [
+							"var encodedParam = pm.variables.get(\"encoded\");",
+							"var expectedFN = pm.variables.get(\"firstName\");",
+							"",
+							"// Because the strings are naughty, it is ",
+							"// better to log the encoded string value",
+							"pm.test(\"Status code is 200 with firstName: \" + encodedParam, function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// if the POST wasn't ok there is no need to continue",
+							"if(pm.response.code === 200){",
+							"    var jsonData = pm.response.json();",
+							"    pm.test(\"First name in response is correct\", function(){",
+							"        pm.expect(jsonData.booking.firstname).to.eql(expectedFN);",
+							"    });",
+							"    ",
+							"    // Only do the next test if the initial response was correct",
+							"    if(jsonData.booking.firstname === expectedFN){",
+							"        pm.test(\"Retreive record by id and check name\", function(){",
+							"            var bookingId = jsonData.bookingid",
+							"            var getBooking = pm.request.url + \"/\" + bookingId;",
+							"            pm.sendRequest(getBooking, function (err, res) {",
+							"                if (err) {",
+							"                    console.log(err);",
+							"                } else {",
+							"                    pm.expect(res).to.have.property('code', 200);",
+							"                    pm.expect(res.body.firstname).to.eql(jsonData.booking.firstname);",
+							"                }",
+							"            });",
+							"        });",
+							"    }",
+							"}",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "94e59880-b52a-4706-81e1-b1d31851f87e",
+						"type": "text/javascript",
+						"exec": [
+							"// The atob library does decoding - the name of the library is backwards!",
+							"var b64decode = require('atob');",
+							"// Get the base64 naughty string injected by the Collection Runner",
+							"var fn64 = pm.variables.get(\"encoded\");",
+							"// Set the decoded value as the firstName variable",
+							"pm.variables.set(\"firstName\", b64decode(fn64))",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstname\" : \"{{firstName}}\",\n  \"lastname\" : \"Brown\",\n  \"totalprice\" : 123,\n  \"depositpaid\" : true,\n  \"additionalneeds\" : \"Breakfast\",\n  \"bookingdates\" : {\n    \"checkin\" : \"2013-02-23\",\n    \"checkout\" : \"2014-10-23\"\n  }\n}"
+				},
+				"url": {
+					"raw": "{{RB_URL}}/booking",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

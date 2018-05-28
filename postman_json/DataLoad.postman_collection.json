@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "8ecfa48a-f368-4967-950e-b6373b8fae92",
+		"name": "DataLoad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Booking",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "549f86bc-1001-4118-9f97-f9d41b0224c6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(50);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "edaadf8e-f1a3-4e50-b256-40e078967906",
+						"type": "text/javascript",
+						"exec": [
+							"/*",
+							"Note that restfulbooker-herokuapp.com is a shared resource",
+							"which resets every 10 minutes. Please run this on your local instance!!",
+							"*/",
+							"const createRequest = {",
+							"  url: pm.environment.get(\"RB_URL\") + \"/booking\",",
+							"  method: 'POST',",
+							"  header: 'Content-Type:application/json',",
+							"  body: {",
+							"    mode: 'raw',",
+							"    raw: JSON.stringify({",
+							"  \"firstname\" : \"Sally\",",
+							"  \"lastname\" : \"Brown\",",
+							"  \"totalprice\" : 125,",
+							"  \"depositpaid\" : true,",
+							"  \"additionalneeds\" : \"Breakfast\",",
+							"  \"bookingdates\" : {",
+							"    \"checkin\" : \"2018-10-23\",",
+							"    \"checkout\" : \"2018-10-25\"",
+							"  }",
+							"})",
+							"  }",
+							"};",
+							"for(var i = 0; i < 100; i++){",
+							"    pm.sendRequest(createRequest, function (err, res) {",
+							"      console.log(err ? err : res.json());",
+							"    });",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{RB_URL}}/booking?firstname=Mark",
+					"host": [
+						"{{RB_URL}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "Mark"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
