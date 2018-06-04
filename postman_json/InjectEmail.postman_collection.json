@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "c6731be2-77a9-4d49-a488-9a9b8331fa23",
+		"name": "InjectEmail",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a8a657e-4436-4222-a51e-753b09066f89",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code for \" + pm.variables.get(\"email\") + \" is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Origin",
+						"value": "https://ambertests-juiceshop.herokuapp.com"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Referer",
+						"value": "https://ambertests-juiceshop.herokuapp.com/"
+					},
+					{
+						"key": "Cookie",
+						"value": "io=5oHcFIowRINfKwRvAADA; continueCode=wjKRWbLRo7kYz8mjyQ3p9aJEDngB0NV05ev1WwPNxZq64KV2OrMXblog1LEQ; cookieconsent_status=dismiss"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"{{email}}\",\"password\":\"password\"}"
+				},
+				"url": {
+					"raw": "https://ambertests-juiceshop.herokuapp.com/rest/user/login",
+					"protocol": "https",
+					"host": [
+						"ambertests-juiceshop",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"rest",
+						"user",
+						"login"
+					]
+				},
+				"description": "Request for demonstrating SQL injection attack"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "24fb8034-df44-462f-ad33-5f4d6e05d449",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5dfae98b-4d6c-404c-9aa6-aef998405ae3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
