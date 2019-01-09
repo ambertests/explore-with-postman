@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "98a14dc7-4e31-45d3-a0f8-ee969a4965c7",
+		"name": "Restful Booker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://restful-booker.herokuapp.com/ping",
+					"protocol": "https",
+					"host": [
+						"restful-booker",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e09643a-03f2-4e67-bc22-65be8ed1491d",
+						"exec": [
+							"pm.globals.set(\"token\", pm.response.json().token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"password123\"\n}"
+				},
+				"url": {
+					"raw": "{{rb_url}}/auth",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Bookings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking By Name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking?firstname=sally&lastname=brown",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "firstname",
+							"value": "sally"
+						},
+						{
+							"key": "lastname",
+							"value": "brown"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bookings By Date",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking?checkin=2014-03-13&checkout=2014-05-21",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking"
+					],
+					"query": [
+						{
+							"key": "checkin",
+							"value": "2014-03-13"
+						},
+						{
+							"key": "checkout",
+							"value": "2014-05-21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking/1",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Booking",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"Jim\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Booking",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\",\n    \"totalprice\" : 111,\n    \"depositpaid\" : true,\n    \"bookingdates\" : {\n        \"checkin\" : \"2018-01-01\",\n        \"checkout\" : \"2019-01-01\"\n    },\n    \"additionalneeds\" : \"Breakfast\"\n}"
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking/1",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Partial Update Booking",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\" : \"James\",\n    \"lastname\" : \"Brown\"\n}"
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking/1",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Booking",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Cookie",
+						"value": "token={{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{rb_url}}/booking/1",
+					"host": [
+						"{{rb_url}}"
+					],
+					"path": [
+						"booking",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "858f0d4e-0d8a-4587-a962-f5d8f2446884",
+				"type": "text/javascript",
+				"exec": [
+					"// top names of 1996",
+					"var firstNames = [\"Emily\",\"Michael\", \"Jessica\",\"Matthew\", \"Ashley\",",
+					"\"Jacob\",\"Sarah\",\"Christopher\",\"Samantha\",\"Joshua\",",
+					"\"Taylor\",\"Nicholas\",\"Hannah\",\"Tyler\",\"Alexis\",",
+					"\"Brandon\",\"Rachel\",\"Austin\",\"Elizabeth\",\"Andrew\"];",
+					"",
+					"// top surnames in the U.S.",
+					"var lastNames = [\"Smith\", \"Johnson\", \"Williams\", \"Jones\", \"Brown\", ",
+					"\"Davis\", \"Miller\", \"Wilson\", \"Moore\", \"Taylor\", ",
+					"\"Anderson\", \"Thomas\", \"Jackson\", \"White\", \"Harris\", ",
+					"\"Martin\", \"Thompson\", \"Garcia\", \"Martinez\", \"Robinson\"];",
+					"",
+					"// randomly select first and last names then add to collection variables",
+					"pm.variables.set(\"firstname\", firstNames[_.random(firstNames.length - 1)]);",
+					"pm.variables.set(\"lastname\", lastNames[_.random(lastNames.length - 1)]);",
+					"",
+					"// the random function comes from the loadash module (\"_.\")",
+					"// https://lodash.com/docs/4.17.11#random",
+					"pm.variables.set(\"totalprice\", _.random(50, 250));",
+					"pm.variables.set(\"depositpaid\", (_.random(1) === 1));",
+					"",
+					"// the moment module helps with date manipulation and formatting",
+					"const moment = require(\"moment\");",
+					"var checkin = moment().add(\"days\", _.random(1, 180));",
+					"pm.variables.set(\"checkin\", checkin.format(\"YYYY-MM-DD\"));",
+					"",
+					"var checkout = checkin.add(\"days\", _.random(1, 14));",
+					"pm.variables.set(\"checkout\", checkout.format(\"YYYY-MM-DD\"));",
+					"",
+					"var needs = [\"breakfast\", \"lunch\", \"early checkin\", \"late checkout\", null];",
+					"pm.variables.set(\"additionalneeds\", needs[_.random(needs.length-1)]);",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "da1316f6-9655-441e-bd27-8abc3715f398",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
