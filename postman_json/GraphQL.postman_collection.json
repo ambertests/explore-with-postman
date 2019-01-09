@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "1ff76d81-29a1-4443-b203-f7e7bdd66e2d",
+		"name": "GraphQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/graphql"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "mutation {addUser (userid:\"4\", name:\"Mary Lamb\", age:25) {userid name age}}"
+				},
+				"url": {
+					"raw": "https://4m6fkz8ned.execute-api.us-east-1.amazonaws.com/latest/graphql",
+					"protocol": "https",
+					"host": [
+						"4m6fkz8ned",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"latest",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/graphql"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{user {userid name age}}"
+				},
+				"url": {
+					"raw": "https://4m6fkz8ned.execute-api.us-east-1.amazonaws.com/latest/graphql",
+					"protocol": "https",
+					"host": [
+						"4m6fkz8ned",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"latest",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By ID",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/graphql"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\tuser (userid:\"4\") {\n\t     userid\n\t     name\n\t     age\n\t  }\n  }"
+				},
+				"url": {
+					"raw": "https://4m6fkz8ned.execute-api.us-east-1.amazonaws.com/latest/graphql",
+					"protocol": "https",
+					"host": [
+						"4m6fkz8ned",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"latest",
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
