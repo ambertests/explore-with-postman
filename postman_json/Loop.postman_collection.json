@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "a737efca-6878-41d6-aab6-81db23a5ffaa",
+		"name": "Loop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Time Zones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3d7538a-845b-4a62-a64e-77ea70ef20ad",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var tz = pm.response.json();",
+							"",
+							"// The worldtimeapi is rate-limited, so filter just African ",
+							"// time zones to make the number of requests manageable ",
+							"var zones = []",
+							"for (var z in tz){",
+							"    var zone = tz[z]",
+							"    if (zone.startsWith(\"Africa\")){",
+							"        zones.push(zone)",
+							"    }",
+							"}",
+							"console.log(zones)",
+							"// now set our collection variables with the array and the initial index (0)",
+							"pm.variables.set(\"timezones\", JSON.stringify(zones))",
+							"pm.variables.set(\"tz_index\", 0)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://worldtimeapi.org/api/timezone",
+					"protocol": "http",
+					"host": [
+						"worldtimeapi",
+						"org"
+					],
+					"path": [
+						"api",
+						"timezone"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Time For Zone",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "83eae302-b6e4-4df5-a22d-ad8e34903c35",
+						"exec": [
+							"// Fetch the variables set in \"Get Time Zones\" ",
+							"// and get the next zone in the list",
+							"tz = JSON.parse(pm.variables.get('timezones'))",
+							"index = parseInt(pm.variables.get('tz_index'))",
+							"pm.variables.set('tz', tz[index])",
+							"",
+							"// If we are *not* on the last item in the list,",
+							"// increment the index and set the next request to ",
+							"// this one. Otherwise end the loop.",
+							"",
+							"// Note that we can do this in the pre-request",
+							"// because setNextRequest doesn't execute anything,",
+							"// it just establishes workflow",
+							"if (index + 1 < tz.length){",
+							"    pm.variables.set('tz_index', index + 1)",
+							"    postman.setNextRequest('Get Time For Zone')",
+							"}else{",
+							"    postman.setNextRequest(null)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "931b7f05-bf7f-46be-b154-87f2ca562ec9",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var zone = pm.variables.get(\"tz\")",
+							"pm.test(\"Timezone \" + zone + \" is returned correctly\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.timezone).to.eql(zone);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://worldtimeapi.org/api/timezone/{{tz}}",
+					"protocol": "http",
+					"host": [
+						"worldtimeapi",
+						"org"
+					],
+					"path": [
+						"api",
+						"timezone",
+						"{{tz}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
