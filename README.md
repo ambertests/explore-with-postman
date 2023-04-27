@@ -18,3 +18,4 @@ Postman files used to demonstrate exploratory testing with [Restful Booker](http
 Shell script used to make *naughty_strings.csv*
 - **swagger-petstore-converter.js**: 
 Node.js script which converts the [Swagger Petstore](http://petstore.swagger.io) sample to a complete Postman collection file.
+Json Format
